@@ -222,7 +222,10 @@
     },
     "bub": {
       "__id__": 11
-    }
+    },
+    "curTouch": [],
+    "lastTick": 0,
+    "isOnTouch": false
   },
   {
     "__type__": "cc.Node",

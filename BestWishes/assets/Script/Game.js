@@ -13,7 +13,10 @@ cc.Class({
 		bub:{
 			default:null,
 			type:cc.Node,
-		}
+		},
+		curTouch:[],
+		lastTick:0,
+		isOnTouch:false,
 	},
 	onLoad:function () {
 		var self = this;
@@ -21,6 +24,7 @@ cc.Class({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
             swallowTouches: true,
             onTouchBegan: function (argument) {
+            	self.isOnTouch = true;
             	return true;
             },
             onTouchMoved: function(touch, event){
@@ -28,19 +32,25 @@ cc.Class({
 					    	console.log("onTouchMoved", pos.x, pos.y);
 					    	// let fish = cc.find("Fish", target);
 					    	// let bubble = self.bub;
-					    	let b2 = cc.instantiate(self.orinBubble);
-					    	b2.setPosition(cc.p(pos.x - cc.visibleRect.width*0.5, pos.y-cc.visibleRect.height*0.5));
-					    	self.node.addChild(b2, 20);
+					    	self.curTouch = pos;
+					    	
 					    	// self.fish.setPosition(cc.p(pos.x, pos.y));
 				    },
             onTouchEnded: function (argument) {
-            	
+            	self.isOnTouch = false;
             }
         }, this.node);
 	},
 
 	update:function (dt) {
-		
+		this.lastTick += dt;
+		if (this.lastTick > 0.06 && this.isOnTouch) {
+			this.lastTick = 0
+			let b2 = cc.instantiate(this.orinBubble);
+	    	b2.setPosition(cc.p(this.curTouch.x - cc.visibleRect.width*0.5, this.curTouch.y-cc.visibleRect.height*0.5));
+	    	b2.setScale(0.2);
+	    	this.node.addChild(b2, 20);
+		}
 	},
 
 	containsTouchLocation:function (touch) {
