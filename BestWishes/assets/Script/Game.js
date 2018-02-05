@@ -1,41 +1,43 @@
 cc.Class({
 	extends:cc.Component,
 	properties:{
-		bubble:{
-			default:null,
-			type:cc.Node,
-		},
+		
 		fish:{
 			default:null,
 			type:cc.Node,
 		},
+		orinBubble:{
+			default:null,
+			type:cc.Prefab,
+		},
+		bub:{
+			default:null,
+			type:cc.Node,
+		}
 	},
 	onLoad:function () {
+		var self = this;
 		cc.eventManager.addListener({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
             swallowTouches: true,
-            onTouchBegan: this.onTouchBegan,
-            onTouchMoved: this.onTouchMoved,
-            onTouchEnded: this.onTouchEnded
+            onTouchBegan: function (argument) {
+            	return true;
+            },
+            onTouchMoved: function(touch, event){
+					    	let pos = touch.getLocation();
+					    	console.log("onTouchMoved", pos.x, pos.y);
+					    	// let fish = cc.find("Fish", target);
+					    	let bubble = self.bub;
+					    	// let b2 = cc.instantiate(bubble);
+					    	bubble.setPosition(cc.p(pos.x, pos.y));
+					    	// self.node.addChild(b2, 2);
+					    	// self.fish.setPosition(cc.p(pos.x, pos.y));
+				    },
+            onTouchEnded: function (argument) {
+            	
+            }
         }, this.node);
 	},
-	onTouchBegan:function (touch, event) {
-        var target = event.getCurrentTarget();
-        // if (!target.containsTouchLocation(touch)) return false;
-        console.log("onTouchBegan", touch)
-        
-        return true;
-    },
-    onTouchMoved(touch, event, target){
-    	let pos = touch.getLocation();
-    	console.log("onTouchMoved", touch.getLocation().x, touch.getLocation().y);
-    	let fish = cc.find("Fish", target);
-    	fish.setPosition(cc.p(pos.x, pos.y));
-
-    },
-    onTouchEnded(touch, event){
-        console.log("onTouchEnded", touch)
-    },
 
 	update:function (dt) {
 		
