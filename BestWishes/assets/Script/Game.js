@@ -27,10 +27,10 @@ cc.Class({
 					    	let pos = touch.getLocation();
 					    	console.log("onTouchMoved", pos.x, pos.y);
 					    	// let fish = cc.find("Fish", target);
-					    	let bubble = self.bub;
-					    	// let b2 = cc.instantiate(bubble);
-					    	bubble.setPosition(cc.p(pos.x, pos.y));
-					    	// self.node.addChild(b2, 2);
+					    	// let bubble = self.bub;
+					    	let b2 = cc.instantiate(self.orinBubble);
+					    	b2.setPosition(cc.p(pos.x - cc.visibleRect.width*0.5, pos.y-cc.visibleRect.height*0.5));
+					    	self.node.addChild(b2, 20);
 					    	// self.fish.setPosition(cc.p(pos.x, pos.y));
 				    },
             onTouchEnded: function (argument) {
