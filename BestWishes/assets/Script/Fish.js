@@ -26,15 +26,15 @@ cc.Class({
     update (dt) {
         var x = this.node.x;
         var y = this.node.y;
-        x = x + this.fspeed;
-        if (x > cc.visibleRect.width) {
-            x = 0;
-            y = cc.random0To1() * cc.visibleRect.height
-        }else if (x < 0) {
-            x = cc.visibleRect.width;
-            y = cc.random0To1() * cc.visibleRect.height
-        }
-        this.node.setPosition(x, y)
+        // x = x + this.fspeed;
+        // if (x > cc.visibleRect.width) {
+        //     x = 0;
+        //     y = cc.random0To1() * cc.visibleRect.height
+        // }else if (x < 0) {
+        //     x = cc.visibleRect.width;
+        //     y = cc.random0To1() * cc.visibleRect.height
+        // }
+        // this.node.setPosition(x, y)
         // console.log("x:", x, " y:", y)
     },
 });
