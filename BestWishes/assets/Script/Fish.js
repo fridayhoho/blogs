@@ -27,11 +27,11 @@ cc.Class({
         var x = this.node.x;
         var y = this.node.y;
         x = x + this.fspeed;
-        if (x > cc.visibleRect.width) {
-            x = 0;
+        if (x > cc.visibleRect.width * 0.5) {
+            x = -cc.visibleRect.width * 0.5;
             y = cc.random0To1() * cc.visibleRect.height
-        }else if (x < 0) {
-            x = cc.visibleRect.width;
+        }else if (x < -cc.visibleRect.width * 0.5) {
+            x = cc.visibleRect.width * 0.5;
             y = cc.random0To1() * cc.visibleRect.height
         }
         this.node.setPosition(x, y)

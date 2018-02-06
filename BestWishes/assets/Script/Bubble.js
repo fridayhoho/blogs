@@ -12,18 +12,33 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        
+        startTime:0, //出现的时间
+        toRun:false, //开始移动
+        dx : 0, //位移速度
+        dy : 0,
     },
 
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
-        
+        this.startTime = Date.now();
+        console.log(this.startTime)
     },
 
     start () {
 
     },
-    
-    // update (dt) {},
+
+    update (dt) {
+        if (this.toRun == false && Date.now() - this.startTime > (800 + cc.random0To1() * 3000) ) {
+            this.toRun = true;
+            this.dx = cc.lerp(-5, 5, cc.random0To1());
+            this.dy = cc.lerp(-5, 5, cc.random0To1());
+        }
+        if (this.toRun) {
+            var x = this.node.x + this.dx;
+            var y = this.node.y + this.dy;
+            this.node.setPosition(cc.p(x, y))
+        }
+    },
 });

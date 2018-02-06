@@ -17,9 +17,12 @@ cc.Class({
 		curTouch:[],
 		lastTick:0,
 		isOnTouch:false,
+
+		bubbles:[],//所有气泡
 	},
 	onLoad:function () {
 		var self = this;
+
 		cc.eventManager.addListener({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
             swallowTouches: true,
@@ -29,7 +32,7 @@ cc.Class({
             },
             onTouchMoved: function(touch, event){
 					    	let pos = touch.getLocation();
-					    	console.log("onTouchMoved", pos.x, pos.y);
+					    	// console.log("onTouchMoved", pos.x, pos.y);
 					    	// let fish = cc.find("Fish", target);
 					    	// let bubble = self.bub;
 					    	self.curTouch = pos;
@@ -48,8 +51,11 @@ cc.Class({
 			this.lastTick = 0
 			let b2 = cc.instantiate(this.orinBubble);
 	    	b2.setPosition(cc.p(this.curTouch.x - cc.visibleRect.width*0.5, this.curTouch.y-cc.visibleRect.height*0.5));
-	    	b2.setScale(0.2);
-	    	this.node.addChild(b2, 20);
+	    	b2.setScale(dt* 10);
+	    	// b2.setColor(cc.color(230, 200, 200));
+	    	
+	    	this.bubbles.push(b2)
+	    	this.node.addChild(b2, cc.rand() %100);
 		}
 	},
 
