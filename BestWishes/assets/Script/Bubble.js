@@ -22,7 +22,7 @@ cc.Class({
 
     onLoad () {
         this.startTime = Date.now();
-        console.log(this.startTime)
+        console.log("bubbleStartTime:", this.startTime)
     },
 
     start () {
@@ -30,15 +30,24 @@ cc.Class({
     },
 
     update (dt) {
-        if (this.toRun == false && Date.now() - this.startTime > (800 + cc.random0To1() * 3000) ) {
-            this.toRun = true;
-            this.dx = cc.lerp(-5, 5, cc.random0To1());
-            this.dy = cc.lerp(-5, 5, cc.random0To1());
+        if (this.toRun == false && Date.now() - this.startTime > (3800 + cc.random0To1() * 3000) ) {
+            // this.toRun = true;
+            // this.dx = cc.lerp(-5, 5, cc.random0To1());
+            // this.dy = cc.lerp(-5, 5, cc.random0To1());
         }
         if (this.toRun) {
             var x = this.node.x + this.dx;
             var y = this.node.y + this.dy;
             this.node.setPosition(cc.p(x, y))
+
         }
+    },
+    
+    onCollisionEnter(other) {
+        console.log('on collision enter');
+        // this.node.color = cc.Color.RED;
+        this.toRun = true;
+        this.dx = cc.lerp(-5, 5, cc.random0To1());
+        this.dy = cc.lerp(-5, 5, cc.random0To1());
     },
 });

@@ -22,12 +22,16 @@ cc.Class({
 	},
 	onLoad:function () {
 		var self = this;
-
+		cc.director.getCollisionManager().enabled = true;
+        // cc.director.getCollisionManager().enabledDebugDraw = true;
+        
 		cc.eventManager.addListener({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
             swallowTouches: true,
-            onTouchBegan: function (argument) {
+            onTouchBegan: function (touch, event) {
             	self.isOnTouch = true;
+            	let pos = touch.getLocation();
+            	self.curTouch = pos;
             	return true;
             },
             onTouchMoved: function(touch, event){
@@ -53,9 +57,19 @@ cc.Class({
 	    	b2.setPosition(cc.p(this.curTouch.x - cc.visibleRect.width*0.5, this.curTouch.y-cc.visibleRect.height*0.5));
 	    	b2.setScale(dt* 10);
 	    	// b2.setColor(cc.color(230, 200, 200));
-	    	
+
 	    	this.bubbles.push(b2)
-	    	this.node.addChild(b2, cc.rand() %100);
+	    	var bg = this.node.getChildByName("bg")
+	    	// console.log("same?", this.fish.getParent() == bg);
+	    	bg.addChild(b2);
+		}
+		for (var i = 0; i < this.bubbles.length; i++) {
+			if (this.bubbles[i].x > cc.visibleRect.width * 0.5 || this.bubbles[i].y > cc.visibleRect.height * 0.5
+				|| this.bubbles[i].y < - cc.visibleRect.height*0.5 || this.bubbles[i].y > cc.visibleRect.height*0.5) {
+				this.bubbles[i].removeFromParent();
+				this.bubbles.slice(-1, 1);	
+			}
+			
 		}
 	},
 

@@ -4,7 +4,8 @@ cc.Class({
 
     properties: {
         ftype: 0 , //类型
-        fspeed : 5, //速度
+        xspeed : 5, //速度
+        yspeed : 2,
         fdir: G_VAR.DIR_LEFT, //方向
         fanim:{
             default:null,
@@ -26,13 +27,18 @@ cc.Class({
     update (dt) {
         var x = this.node.x;
         var y = this.node.y;
-        x = x + this.fspeed;
+        x = x + this.xspeed;
+        // y = y + this.yspeed;
         if (x > cc.visibleRect.width * 0.5) {
             x = -cc.visibleRect.width * 0.5;
-            y = cc.random0To1() * cc.visibleRect.height
+            y = cc.lerp(10, cc.visibleRect.height, cc.random0To1());
+            this.xspeed = cc.lerp(-5, 5, cc.random0To1());
+            // this.yspeed = cc.lerp(-5, 5, cc.random0To1());
         }else if (x < -cc.visibleRect.width * 0.5) {
             x = cc.visibleRect.width * 0.5;
-            y = cc.random0To1() * cc.visibleRect.height
+            y = cc.lerp(10, cc.visibleRect.height, cc.random0To1());
+            this.xspeed = cc.lerp(-5, 5, cc.random0To1());
+            // this.yspeed = cc.lerp(-5, 5, cc.random0To1());
         }
         this.node.setPosition(x, y)
         // console.log("x:", x, " y:", y)
