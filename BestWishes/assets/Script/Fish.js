@@ -16,7 +16,7 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
-        this.getComponent(cc.Sprite).atlas
+        
         
     },
 
@@ -31,13 +31,15 @@ cc.Class({
         // y = y + this.yspeed;
         if (x > cc.visibleRect.width * 0.5) {
             x = -cc.visibleRect.width * 0.5;
-            y = cc.lerp(10, cc.visibleRect.height, cc.random0To1());
-            this.xspeed = cc.lerp(-5, 5, cc.random0To1());
+            
+            // this.node.runAction(cc.flipX(true));
+            y = cc.lerp(0, cc.visibleRect.height, cc.random0To1());
+            this.xspeed = cc.lerp(5, 10, cc.random0To1());
             // this.yspeed = cc.lerp(-5, 5, cc.random0To1());
         }else if (x < -cc.visibleRect.width * 0.5) {
-            x = cc.visibleRect.width * 0.5;
-            y = cc.lerp(10, cc.visibleRect.height, cc.random0To1());
-            this.xspeed = cc.lerp(-5, 5, cc.random0To1());
+            // x = cc.visibleRect.width * 0.5;
+            // y = cc.lerp(10, cc.visibleRect.height, cc.random0To1());
+            // this.xspeed = cc.lerp(-5, -15, cc.random0To1());
             // this.yspeed = cc.lerp(-5, 5, cc.random0To1());
         }
         this.node.setPosition(x, y)

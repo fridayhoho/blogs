@@ -22,7 +22,7 @@ cc.Class({
 
     onLoad () {
         this.startTime = Date.now();
-        console.log("bubbleStartTime:", this.startTime)
+        
     },
 
     start () {
@@ -46,6 +46,7 @@ cc.Class({
     onCollisionEnter(other) {
         console.log('on collision enter');
         // this.node.color = cc.Color.RED;
+        // other.node.runAction(cc.flipX(true));
         this.toRun = true;
         this.dx = cc.lerp(-5, 5, cc.random0To1());
         this.dy = cc.lerp(-5, 5, cc.random0To1());

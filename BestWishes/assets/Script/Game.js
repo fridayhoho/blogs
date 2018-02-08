@@ -61,7 +61,7 @@ cc.Class({
 	    	this.bubbles.push(b2)
 	    	var bg = this.node.getChildByName("bg")
 	    	// console.log("same?", this.fish.getParent() == bg);
-	    	bg.addChild(b2);
+	    	this.node.addChild(b2);
 		}
 		for (var i = 0; i < this.bubbles.length; i++) {
 			if (this.bubbles[i].x > cc.visibleRect.width * 0.5 || this.bubbles[i].y > cc.visibleRect.height * 0.5
