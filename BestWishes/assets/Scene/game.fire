@@ -143,8 +143,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 1280,
-      "height": 720
+      "width": 640,
+      "height": 960
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -315,7 +315,7 @@
       "__uuid__": "627b1dca-3f0f-4761-84e0-689c0321574a"
     },
     "_type": 0,
-    "_sizeMode": 1,
+    "_sizeMode": 0,
     "_fillType": 0,
     "_fillCenter": {
       "__type__": "cc.Vec2",
@@ -359,10 +359,10 @@
     "orinBubble": {
       "__uuid__": "260bbc7a-78b6-4ec5-9147-2d600ee78112"
     },
-    "bub": null,
     "curTouch": [],
     "lastTick": 0,
     "isOnTouch": false,
-    "bubbles": []
+    "bubbles": [],
+    "curBubble": null
   }
 ]

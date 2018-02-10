@@ -119,7 +119,10 @@
     "startTime": 0,
     "toRun": false,
     "dx": 0,
-    "dy": 0
+    "dy": 0,
+    "radius": 20,
+    "isGrowing": false,
+    "growStep": 10
   },
   {
     "__type__": "cc.PrefabInfo",

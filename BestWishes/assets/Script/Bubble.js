@@ -7,8 +7,7 @@
 // Learn life-cycle callbacks:
 //  - [Chinese] http://www.cocos.com/docs/creator/scripting/life-cycle-callbacks.html
 //  - [English] http://www.cocos2d-x.org/docs/editors_and_tools/creator-chapters/scripting/life-cycle-callbacks/index.html
-
-cc.Class({
+var Bubble = cc.Class({
     extends: cc.Component,
 
     properties: {
@@ -16,6 +15,9 @@ cc.Class({
         toRun:false, //开始移动
         dx : 0, //位移速度
         dy : 0,
+        radius:20,
+        isGrowing:false,//是否长大中
+        growStep:10, //增长半径步长
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -35,14 +37,29 @@ cc.Class({
             // this.dx = cc.lerp(-5, 5, cc.random0To1());
             // this.dy = cc.lerp(-5, 5, cc.random0To1());
         }
+        console.log("isGrowing:", this.isGrowing);
+        if (this.isGrowing) {
+                this.radius += this.growStep;
+                this.node.setScale(1+ this.growStep/100);
+        }
         if (this.toRun) {
             var x = this.node.x + this.dx;
             var y = this.node.y + this.dy;
             this.node.setPosition(cc.p(x, y))
-
         }
     },
-    
+    outHand:function () {
+        this.toRun = true;
+        this.dx = cc.lerp(-5, 5, cc.random0To1());
+        this.dy = cc.lerp(-5, 5, cc.random0To1());
+        this.stopGrowUp();
+    },
+    startGrowUp:function () {
+        this.isGrowing = true; 
+    },
+    stopGrowUp:function () {
+        this.isGrowing = false;  
+    },
     onCollisionEnter(other) {
         console.log('on collision enter');
         // this.node.color = cc.Color.RED;
@@ -52,3 +69,5 @@ cc.Class({
         this.dy = cc.lerp(-5, 5, cc.random0To1());
     },
 });
+
+module.exports = Bubble;
