@@ -37,10 +37,10 @@ var Bubble = cc.Class({
             // this.dx = cc.lerp(-5, 5, cc.random0To1());
             // this.dy = cc.lerp(-5, 5, cc.random0To1());
         }
-        console.log("isGrowing:", this.isGrowing);
+        
         if (this.isGrowing) {
                 this.radius += this.growStep;
-                this.node.setScale(1+ this.growStep/100);
+                this.node.setScale(this.node.getScale() + dt );
         }
         if (this.toRun) {
             var x = this.node.x + this.dx;
@@ -49,6 +49,7 @@ var Bubble = cc.Class({
         }
     },
     outHand:function () {
+        console.log("outHand");
         this.toRun = true;
         this.dx = cc.lerp(-5, 5, cc.random0To1());
         this.dy = cc.lerp(-5, 5, cc.random0To1());

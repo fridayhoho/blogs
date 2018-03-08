@@ -47,6 +47,7 @@ cc.Class({
 				    },
             onTouchEnded: function (argument) {
             	self.isOnTouch = false;
+            	self.onReleaseBubble();
             }
         }, this.node);
 	},
@@ -97,7 +98,7 @@ cc.Class({
 	onReleaseBubble:function () {
 		this.isOnTouch = false;
 		if (this.curBubble != null) {
-			this.curBubble.outHand();
+			this.curBubble.getComponent("Bubble").outHand();
 		}
 		this.curBubble = null;
 	},
