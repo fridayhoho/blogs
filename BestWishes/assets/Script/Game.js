@@ -77,6 +77,7 @@ cc.Class({
 	},
 
 	startCreateBubble:function (pos) {
+		var self = this;
 		let b2 = cc.instantiate(this.orinBubble);
     	b2.setPosition(cc.p(pos.x - cc.visibleRect.width*0.5, pos.y-cc.visibleRect.height*0.5));
     	b2.setScale(0.2);
@@ -84,7 +85,12 @@ cc.Class({
     	this.bubbles.push(b2);
     	b2.getComponent("Bubble").startGrowUp();
     	var bg = this.node.getChildByName("bg");
-    	this.node.addChild(b2);
+    	this.node.addChild(b2);  
+    	b2.getComponent("Bubble").setNewCallback(function (cnt) {
+    		for (var i = 0; i < cnt; i++) {
+    			self.startCreateBubble(pos);
+    		}
+    	});
 	},
 
 	onMoveBubble:function (pos) {

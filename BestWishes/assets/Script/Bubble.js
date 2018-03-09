@@ -19,6 +19,7 @@ var Bubble = cc.Class({
         radius:20,
         isGrowing:false,//是否长大中
         growStep:10, //增长半径步长
+        startCallback:null,
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -42,8 +43,12 @@ var Bubble = cc.Class({
         if (this.isGrowing) {
                 this.radius += this.growStep;
                 this.node.setScale(this.node.getScale() + dt );
-                // var outSha = sha256.sha256_digest(dt);
-                // console.log("dt", dt, " out:", outSha);
+                var timestamp3 = new Date().getTime();
+                console.log("intput:", timestamp3.toString());
+                var outSha = sha256(timestamp3.toString());
+                var fetchs = this.fetchGolds(outSha, '0');
+                console.log( outSha.length, " out:", outSha, " fetchs:", fetchs);
+                // this.startCallback(fetchs)
         }
         if (this.toRun) {
             var x = this.node.x + this.dx;
@@ -58,13 +63,33 @@ var Bubble = cc.Class({
         this.dy = cc.lerp(-5, 5, cc.random0To1());
         this.stopGrowUp();
     },
+    setNewCallback(callback){
+        this.startCallback = callback;
+        // console.log("typeFunc:", typeof(this.startCallback));
+    },
+    fetchGolds:function (str, target) {
+        let poses = [];
+        let pos = -1;
+        let cnt = 0;
+        while ((pos = str.indexOf(target, pos + 1)) != -1) {
+          poses[pos] = pos;
+          cnt += 1;
+        }
+        return cnt;
+        // for (let v in poses) {
+        //   console.log(v);
+        // }
+    },
     startGrowUp:function () {
         this.isGrowing = true;
+        // var test = "2e31df8208ab4fb5949ef68895bd090a692bbfa2afd49290a72680f42f9f0a1e";
+        // var counts = this.fetchGolds(test, '0');
+        // console.log(test, " counts:", counts);
         // var dateNow = (new Date()).valueOf();
-        var timestamp3 = new Date().getTime();
-        console.log("intput:", timestamp3.toString());
-        var outSha = sha256(timestamp3.toString());
-        console.log( " out:", outSha);
+        // var timestamp3 = new Date().getTime();
+        // console.log("intput:", timestamp3.toString());
+        // var outSha = sha256(timestamp3.toString());
+        // console.log( " out:", outSha);
     },
     stopGrowUp:function () {
         this.isGrowing = false;  

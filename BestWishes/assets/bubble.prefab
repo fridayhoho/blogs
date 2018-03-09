@@ -122,7 +122,8 @@
     "dy": 0,
     "radius": 20,
     "isGrowing": false,
-    "growStep": 10
+    "growStep": 10,
+    "startCallback": null
   },
   {
     "__type__": "cc.PrefabInfo",
