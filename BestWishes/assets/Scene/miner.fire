@@ -59,14 +59,17 @@
         "__id__": 3
       },
       {
-        "__id__": 7
+        "__id__": 11
       }
     ],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 9
+        "__id__": 15
+      },
+      {
+        "__id__": 16
       }
     ],
     "_prefab": null,
@@ -116,13 +119,16 @@
     "_children": [
       {
         "__id__": 4
+      },
+      {
+        "__id__": 6
       }
     ],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 6
+        "__id__": 10
       }
     ],
     "_prefab": null,
@@ -237,6 +243,115 @@
     "_N$overflow": 0
   },
   {
+    "__type__": "cc.Node",
+    "_name": "knifeNode",
+    "_objFlags": 0,
+    "_parent": {
+      "__id__": 3
+    },
+    "_children": [],
+    "_tag": -1,
+    "_active": true,
+    "_components": [
+      {
+        "__id__": 7
+      },
+      {
+        "__id__": 8
+      }
+    ],
+    "_prefab": {
+      "__id__": 9
+    },
+    "_id": "97jQCIqOpKrbVcwQ6AhYxF",
+    "_opacity": 255,
+    "_color": {
+      "__type__": "cc.Color",
+      "r": 255,
+      "g": 255,
+      "b": 255,
+      "a": 255
+    },
+    "_cascadeOpacityEnabled": true,
+    "_anchorPoint": {
+      "__type__": "cc.Vec2",
+      "x": 0.5,
+      "y": 0.5
+    },
+    "_contentSize": {
+      "__type__": "cc.Size",
+      "width": 132,
+      "height": 88
+    },
+    "_rotationX": -90,
+    "_rotationY": -90,
+    "_scaleX": 1,
+    "_scaleY": 1,
+    "_position": {
+      "__type__": "cc.Vec2",
+      "x": 23,
+      "y": -535
+    },
+    "_skewX": 0,
+    "_skewY": 0,
+    "_localZOrder": 0,
+    "_globalZOrder": 0,
+    "_opacityModifyRGB": false,
+    "groupIndex": 0
+  },
+  {
+    "__type__": "cc.Sprite",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 6
+    },
+    "_enabled": true,
+    "_spriteFrame": {
+      "__uuid__": "89048c7e-4fa6-4099-ad5e-2c7000aa3d9f"
+    },
+    "_type": 0,
+    "_sizeMode": 1,
+    "_fillType": 0,
+    "_fillCenter": {
+      "__type__": "cc.Vec2",
+      "x": 0,
+      "y": 0
+    },
+    "_fillStart": 0,
+    "_fillRange": 0,
+    "_isTrimmedMode": true,
+    "_srcBlendFactor": 770,
+    "_dstBlendFactor": 771,
+    "_atlas": {
+      "__uuid__": "96153a12-2f16-4eb4-b853-da63f4255e3d"
+    }
+  },
+  {
+    "__type__": "e2db74xPRlLyKprWXaZNBme",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 6
+    },
+    "_enabled": true,
+    "startTime": 0,
+    "dy": 0,
+    "dx": 0,
+    "kstate": 10
+  },
+  {
+    "__type__": "cc.PrefabInfo",
+    "root": {
+      "__id__": 6
+    },
+    "asset": {
+      "__uuid__": "465aaba0-ef6b-4d2a-b1b3-2798f9fc0bb1"
+    },
+    "fileId": "97jQCIqOpKrbVcwQ6AhYxF",
+    "sync": false
+  },
+  {
     "__type__": "cc.Sprite",
     "_name": "",
     "_objFlags": 0,
@@ -264,7 +379,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "rock",
+    "_name": "targetCircle",
     "_objFlags": 0,
     "_parent": {
       "__id__": 2
@@ -274,10 +389,15 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 8
+        "__id__": 12
+      },
+      {
+        "__id__": 13
       }
     ],
-    "_prefab": null,
+    "_prefab": {
+      "__id__": 14
+    },
     "_id": "b0CX2fk9dKsIaB0dOPgQRh",
     "_opacity": 255,
     "_color": {
@@ -319,7 +439,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 7
+      "__id__": 11
     },
     "_enabled": true,
     "_spriteFrame": {
@@ -341,6 +461,30 @@
     "_atlas": null
   },
   {
+    "__type__": "0b83bNBFC5MhaqBxqkzPKeT",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 11
+    },
+    "_enabled": true,
+    "startTime": 0,
+    "toRun": false,
+    "dx": 0,
+    "dy": 0
+  },
+  {
+    "__type__": "cc.PrefabInfo",
+    "root": {
+      "__id__": 11
+    },
+    "asset": {
+      "__uuid__": "6ed00218-8ca1-43f9-97aa-9df98a5eff4f"
+    },
+    "fileId": "b0CX2fk9dKsIaB0dOPgQRh",
+    "sync": false
+  },
+  {
     "__type__": "cc.Canvas",
     "_name": "",
     "_objFlags": 0,
@@ -355,5 +499,21 @@
     },
     "_fitWidth": false,
     "_fitHeight": true
+  },
+  {
+    "__type__": "b950dExdvVIw5d7qTFIL82D",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 2
+    },
+    "_enabled": true,
+    "knife": {
+      "__id__": 6
+    },
+    "orinKnife": null,
+    "curTouch": [],
+    "lastTick": 0,
+    "isOnTouch": false
   }
 ]
