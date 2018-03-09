@@ -7,6 +7,7 @@
 // Learn life-cycle callbacks:
 //  - [Chinese] http://www.cocos.com/docs/creator/scripting/life-cycle-callbacks.html
 //  - [English] http://www.cocos2d-x.org/docs/editors_and_tools/creator-chapters/scripting/life-cycle-callbacks/index.html
+var sha256 = require("./tools/sha256").sha256;
 var Bubble = cc.Class({
     extends: cc.Component,
 
@@ -31,7 +32,7 @@ var Bubble = cc.Class({
 
     },
 
-    update (dt) {
+    update (dt) { 
         if (this.toRun == false && Date.now() - this.startTime > (3800 + cc.random0To1() * 3000) ) {
             // this.toRun = true;
             // this.dx = cc.lerp(-5, 5, cc.random0To1());
@@ -41,6 +42,8 @@ var Bubble = cc.Class({
         if (this.isGrowing) {
                 this.radius += this.growStep;
                 this.node.setScale(this.node.getScale() + dt );
+                // var outSha = sha256.sha256_digest(dt);
+                // console.log("dt", dt, " out:", outSha);
         }
         if (this.toRun) {
             var x = this.node.x + this.dx;
@@ -56,7 +59,12 @@ var Bubble = cc.Class({
         this.stopGrowUp();
     },
     startGrowUp:function () {
-        this.isGrowing = true; 
+        this.isGrowing = true;
+        // var dateNow = (new Date()).valueOf();
+        var timestamp3 = new Date().getTime();
+        console.log("intput:", timestamp3.toString());
+        var outSha = sha256(timestamp3.toString());
+        console.log( " out:", outSha);
     },
     stopGrowUp:function () {
         this.isGrowing = false;  
