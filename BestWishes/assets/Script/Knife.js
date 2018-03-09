@@ -12,6 +12,9 @@ var Knife = cc.Class({
         dy : 0,
         dx : 0,
         kstate: K_WAITTING,
+        collide_callback:null,
+        orinX:43,
+        orinY:-546,
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -20,11 +23,15 @@ var Knife = cc.Class({
         this.startTime = Date.now();
         
     },
-
-    shot() {
+    resetKnife(){
+        this.node.x = this.orinX;
+        this.node.y = this.orinY;
+    },
+    shot(collide_callback) {
         this.kstate = K_FLYING;
+        this.collide_callback = collide_callback;
         var rotate = cc.rotateBy(0.3, 360);
-        var actionTo = cc.moveTo(0.3, cc.p(0, this.y + cc.visibleRect.height));
+        var actionTo = cc.moveTo(0.3, cc.p(this.x, cc.visibleRect.height/2));
         this.node.runAction(cc.spawn(rotate, actionTo));
         // this.node.runAction(repeat)
     },
@@ -59,7 +66,8 @@ var Knife = cc.Class({
         console.log('on collision enter');
         this.kstate = K_OVER;
         this.node.stopAllActions();
-        // this.node.setRotation(-90);
+        this.node.setRotation(-90);
+        this.collide_callback()
     },
 });
 

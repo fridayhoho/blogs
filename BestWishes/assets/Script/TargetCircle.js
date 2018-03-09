@@ -5,15 +5,17 @@ var TargetCircle = cc.Class({
     properties: {
         startTime:0, //出现的时间
         toRun:false, //开始移动
-        dx : 0, //位移速度
+        dx : 20, //位移速度
         dy : 0,
+        
     },
 
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
         this.startTime = Date.now();
-        
+        this.toRun = true;
+        console.log("visibleRect.width:", cc.visibleRect.width * 0.5);
     },
 
     start () {
@@ -23,8 +25,10 @@ var TargetCircle = cc.Class({
     update (dt) { 
         var x = this.node.x;
         var y = this.node.y;
+        x += this.dx;
+        // console.log("dx:", this.dx, ' x:', x, ' dt:', dt);
         if (this.toRun) {
-            if (x > cc.visibleRect.width * 0.5 || x < cc.visibleRect.width * 0.5) {
+            if (x > cc.visibleRect.width * 0.5 || x < -cc.visibleRect.width * 0.5) {
                     this.dx = - this.dx;
             }
             this.node.setPosition(cc.p(x, y))

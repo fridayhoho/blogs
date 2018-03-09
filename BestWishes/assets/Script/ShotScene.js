@@ -14,13 +14,18 @@ cc.Class({
 		curTouch:[],
 		lastTick:0,
 		isOnTouch:false,
-
+		btnRestart:{
+			default:null,
+			type:cc.Button,
+		}
 		
 	},
 	onLoad:function () {
 		var self = this;
+		this.btnRestart = cc.find("Canvas/bg/btnRestart");
+		this.btnRestart.active =  false;
 		cc.director.getCollisionManager().enabled = true;
-        // cc.director.getCollisionManager().enabledDebugDraw = true;
+        cc.director.getCollisionManager().enabledDebugDraw = true;
         
 		cc.eventManager.addListener({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
@@ -66,11 +71,22 @@ cc.Class({
 		// }
 	},
 
-	shotTheKnife:function (pos) {
-		var self = this;
-		
-		this.knife.getComponent("Knife").shot();
+	onClickRestart(){
+		this.btnRestart.active = false; 
+		this.knife.getComponent("Knife").resetKnife();
 	},
 
+	shotTheKnife:function (pos) {
+		var self = this;
+		this.knife.getComponent("Knife").shot(this.onShotOver);
+		var showBtn = function () {
+			self.btnRestart.active = true;
+		}
+		this.scheduleOnce(showBtn, 0.8);
+	},
+
+	onShotOver:function () {
+		// this.btnRestart.active = true;
+	},
 }
 );
