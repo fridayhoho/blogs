@@ -7,7 +7,7 @@ var TargetCircle = cc.Class({
         toRun:false, //开始移动
         dx : 20, //位移速度
         dy : 0,
-        
+
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -15,11 +15,13 @@ var TargetCircle = cc.Class({
     onLoad () {
         this.startTime = Date.now();
         this.toRun = true;
-        console.log("visibleRect.width:", cc.visibleRect.width * 0.5);
+        console.log("visibleRect.width:", cc.visibleRect.width * 0.5); 
     },
 
-    start () {
-
+    resetBoard () {
+        this.toRun = true;
+        this.dx = 10 + Math.abs(Math.random() % 20)
+        console.log("board dx:", this.dx);
     },
 
     update (dt) { 

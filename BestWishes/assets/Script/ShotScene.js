@@ -7,9 +7,9 @@ cc.Class({
 			default:null,
 			type:cc.Node,
 		},
-		orinKnife:{
+		targetBoard:{
 			default:null,
-			type:cc.Prefab,
+			type:cc.Node,
 		},
 		curTouch:[],
 		lastTick:0,
@@ -73,7 +73,8 @@ cc.Class({
 
 	onClickRestart(){
 		this.btnRestart.active = false; 
-		this.knife.getComponent("Knife").resetKnife();
+		this.knife.getComponent("Knife").resetKnife(); 
+		this.targetBoard.getComponent("TargetCircle").resetBoard();
 	},
 
 	shotTheKnife:function (pos) {
@@ -82,11 +83,12 @@ cc.Class({
 		var showBtn = function () {
 			self.btnRestart.active = true;
 		}
-		this.scheduleOnce(showBtn, 0.8);
+		this.scheduleOnce(showBtn, 0.8); 
 	},
 
 	onShotOver:function () {
-		// this.btnRestart.active = true;
+		console.log("onShotOver")
+		this.onClickRestart();
 	},
 }
 );

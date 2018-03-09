@@ -795,7 +795,9 @@
     "knife": {
       "__id__": 6
     },
-    "orinKnife": null,
+    "targetBoard": {
+      "__id__": 11
+    },
     "curTouch": [],
     "lastTick": 0,
     "isOnTouch": false,
