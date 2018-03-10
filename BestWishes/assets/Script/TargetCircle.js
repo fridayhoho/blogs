@@ -15,7 +15,7 @@ var TargetCircle = cc.Class({
     onLoad () {
         this.startTime = Date.now();
         this.toRun = true;
-        console.log("visibleRect.width:", cc.visibleRect.width * 0.5); 
+        console.log("dvisibleRect.width:", cc.visibleRect.width * 0.5); 
     },
 
     resetBoard () {

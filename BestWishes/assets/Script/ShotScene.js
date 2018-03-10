@@ -25,7 +25,7 @@ cc.Class({
 		this.btnRestart = cc.find("Canvas/bg/btnRestart");
 		this.btnRestart.active =  false;
 		cc.director.getCollisionManager().enabled = true;
-        cc.director.getCollisionManager().enabledDebugDraw = true;
+        // cc.director.getCollisionManager().enabledDebugDraw = true;
         
 		cc.eventManager.addListener({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,

@@ -13,27 +13,36 @@ var Knife = cc.Class({
         dx : 0,
         kstate: K_WAITTING,
         collide_callback:null,
-        orinX:43,
-        orinY:-546,
+        orinX: 0,
+        orinY: 0,
     },
 
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
         this.startTime = Date.now();
-        this.resetKnife(); 
+        this.resetKnife();
+
     },
     resetKnife(){
         this.dx = 10 + Math.abs(Math.random()%30);
         this.node.x = this.orinX;
         this.node.y = this.orinY;
         this.kstate = K_WAITTING;
+        var moveR = cc.moveBy(0.7, cc.p(cc.visibleRect.width * 0.5 - 30, 0));
+        var easeMoveR = moveR.easing(cc.easeIn(0.7));
+        var moveL = cc.moveBy(0.7, cc.p(-(cc.visibleRect.width * 0.5 - 30), 0));
+        var easeMoveL = moveL.easing(cc.easeIn(0.7));
+        var rAction = cc.repeatForever(cc.sequence(easeMoveR, easeMoveR.reverse(), easeMoveL, easeMoveL.reverse()))
+        this.node.runAction(rAction); 
     },
+
     shot(collide_callback) {
         this.kstate = K_FLYING;
+        this.node.stopAllActions();
         this.collide_callback = collide_callback;
         var rotate = cc.rotateBy(0.3, 360);
-        var actionTo = cc.moveTo(0.3, cc.p(this.x, cc.visibleRect.height/2));
+        var actionTo = cc.moveTo(0.5, cc.p(this.x, cc.visibleRect.height/2));
         this.node.runAction(cc.spawn(rotate, actionTo));
         // this.node.runAction(repeat)
     },
@@ -44,10 +53,10 @@ var Knife = cc.Class({
         switch(this.kstate){
             case K_WAITTING:
                 // left right
-                x = this.node.x + this.dx;
-                if (x > cc.visibleRect.width * 0.5 || x < -cc.visibleRect.width * 0.5) {
-                    this.dx = - this.dx;
-                }
+                // x = this.node.x + this.dx;
+                // if (x > cc.visibleRect.width * 0.5 || x < -cc.visibleRect.width * 0.5) {
+                //     this.dx = - this.dx;
+                // }
                 break;
             case K_FLYING:
                 // updown
