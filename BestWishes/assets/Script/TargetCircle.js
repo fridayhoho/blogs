@@ -7,7 +7,12 @@ var TargetCircle = cc.Class({
         toRun:false, //开始移动
         dx : 20, //位移速度
         dy : 0,
-
+        ballSp:{
+            default:null,
+            type:cc.Node
+        },
+        wBall:0,
+        hBall:0,
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -15,6 +20,8 @@ var TargetCircle = cc.Class({
     onLoad () {
         this.startTime = Date.now();
         this.toRun = true;
+        this.wBall = this.ballSp.getContentSize().width ;
+        this.hBall = this.ballSp.getContentSize().height ;
         console.log("dvisibleRect.width:", cc.visibleRect.width * 0.5); 
     },
 
@@ -27,12 +34,13 @@ var TargetCircle = cc.Class({
     update (dt) { 
         var x = this.node.x;
         var y = this.node.y;
-        x += this.dx;
+        var tox = x + this.dx;
         // console.log("dx:", this.dx, ' x:', x, ' dt:', dt);
         if (this.toRun) {
-            if (x > cc.visibleRect.width * 0.5 || x < -cc.visibleRect.width * 0.5) {
+            if (tox > cc.visibleRect.width * 0.5 + this.wBall*0.5 || tox < -cc.visibleRect.width * 0.5 + this.wBall*0.5) {
                     this.dx = - this.dx;
             }
+            x += this.dx;
             this.node.setPosition(cc.p(x, y))
         }
     },

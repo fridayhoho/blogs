@@ -29,10 +29,10 @@ var Knife = cc.Class({
         this.node.x = this.orinX;
         this.node.y = this.orinY;
         this.kstate = K_WAITTING;
-        var moveR = cc.moveBy(0.7, cc.p(cc.visibleRect.width * 0.5 - 30, 0));
-        var easeMoveR = moveR.easing(cc.easeIn(0.7));
-        var moveL = cc.moveBy(0.7, cc.p(-(cc.visibleRect.width * 0.5 - 30), 0));
-        var easeMoveL = moveL.easing(cc.easeIn(0.7));
+        var moveR = cc.moveBy(0.4, cc.p(cc.visibleRect.width * 0.5 - 30, 0));
+        var easeMoveR = moveR.easing(cc.easeIn(0.3));
+        var moveL = cc.moveBy(0.4, cc.p(-(cc.visibleRect.width * 0.5 - 30), 0));
+        var easeMoveL = moveL.easing(cc.easeIn(0.3));
         var rAction = cc.repeatForever(cc.sequence(easeMoveR, easeMoveR.reverse(), easeMoveL, easeMoveL.reverse()))
         this.node.runAction(rAction); 
     },
@@ -75,9 +75,10 @@ var Knife = cc.Class({
     
     onCollisionEnter(other) {
         console.log('on collision enter');
-        this.kstate = K_OVER;
+        this.kstate = K_OVER; 
         this.node.stopAllActions();
-        this.node.setRotation(-90);
+        this.node.setRotation(0);
+        this.getComponent("cc.Sprite").spriteFrame.setTexture(cc.url.raw("Texture/knife_on.png"));
         this.collide_callback()
     },
 });

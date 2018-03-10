@@ -48,7 +48,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 150,
-      "height": 150
+      "height": 95
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -75,7 +75,7 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "feea0be9-a967-4856-9457-39e1105c7e68"
+      "__uuid__": "6c638839-8977-4e0e-be69-d55b876eaafc"
     },
     "_type": 0,
     "_sizeMode": 0,
@@ -103,7 +103,10 @@
     "startTime": 0,
     "toRun": false,
     "dx": 0,
-    "dy": 0
+    "dy": 0,
+    "ballSp": null,
+    "wBall": 0,
+    "hBall": 0
   },
   {
     "__type__": "cc.BoxCollider",
