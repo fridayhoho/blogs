@@ -14,7 +14,23 @@ var Knife = cc.Class({
         kstate: K_WAITTING,
         collide_callback:null,
         orinX: 0,
-        orinY: 0,
+        orinY: 0, 
+        frameNormal:{
+            default:null,
+            type:cc.SpriteFrame
+        },
+        frameOnTarget:{
+            default:null,
+            type:cc.SpriteFrame
+        },
+        audioSource: {
+         url: cc.AudioClip,
+         default: null
+        },
+        audioOnTarget: {
+         url: cc.AudioClip,
+         default: null
+        },
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -29,6 +45,11 @@ var Knife = cc.Class({
         this.node.x = this.orinX;
         this.node.y = this.orinY;
         this.kstate = K_WAITTING;
+        
+        this.getComponent("cc.Sprite").spriteFrame = this.frameNormal;
+        // var knife_n = cc.url.raw("Texture/knife.png");
+        // var tex = cc.textureCache.addImage(knife_n);
+        // this.getComponent("cc.Sprite").spriteFrame.setTexture(tex);
         var moveR = cc.moveBy(0.4, cc.p(cc.visibleRect.width * 0.5 - 30, 0));
         var easeMoveR = moveR.easing(cc.easeIn(0.3));
         var moveL = cc.moveBy(0.4, cc.p(-(cc.visibleRect.width * 0.5 - 30), 0));
@@ -42,9 +63,10 @@ var Knife = cc.Class({
         this.node.stopAllActions();
         this.collide_callback = collide_callback;
         var rotate = cc.rotateBy(0.3, 360);
-        var actionTo = cc.moveTo(0.5, cc.p(this.x, cc.visibleRect.height/2));
+        var actionTo = cc.moveBy(0.5, cc.p(0, cc.visibleRect.height));
         this.node.runAction(cc.spawn(rotate, actionTo));
         // this.node.runAction(repeat)
+        cc.audioEngine.playEffect(this.audioSource, false);
     },
 
     update (dt) {
@@ -78,8 +100,9 @@ var Knife = cc.Class({
         this.kstate = K_OVER; 
         this.node.stopAllActions();
         this.node.setRotation(0);
-        this.getComponent("cc.Sprite").spriteFrame.setTexture(cc.url.raw("Texture/knife_on.png"));
+        this.getComponent("cc.Sprite").spriteFrame = this.frameOnTarget;
         this.collide_callback()
+        cc.audioEngine.playEffect(this.audioOnTarget, false);
     },
 });
 
