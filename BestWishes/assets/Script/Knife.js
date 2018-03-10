@@ -21,11 +21,13 @@ var Knife = cc.Class({
 
     onLoad () {
         this.startTime = Date.now();
-        
+        this.resetKnife(); 
     },
     resetKnife(){
+        this.dx = 10 + Math.abs(Math.random()%30);
         this.node.x = this.orinX;
         this.node.y = this.orinY;
+        this.kstate = K_WAITTING;
     },
     shot(collide_callback) {
         this.kstate = K_FLYING;
@@ -37,29 +39,29 @@ var Knife = cc.Class({
     },
 
     update (dt) {
-        // var x = this.node.x;
-        // var y = this.node.y;
-        // switch(this.kstate):{
-        //     case K_WAITTING:
-        //         // left right
-        //         x = this.node.x + this.dx;
-        //         if (x > cc.visibleRect.width * 0.5 || x < cc.visibleRect.width * 0.5) {
-        //             this.dx = - this.dx;
-        //         }
-        //         break;
-        //     case K_FLYING:
-        //         // updown
-        //         y = this.node.y + this.dy;
-        //         if (y > cc.visibleRect.height * 0.5) {
-        //             this.kstate = K_OVER;
-        //         }
-        //         break
-        //     case K_SHOT_DOWN:
-        //         this.dx = 0;
-        //         this.dy = 0;
-        //         break
-        // }
-        // this.node.setPosition(cc.p(x, y))
+        var x = this.node.x;
+        var y = this.node.y;
+        switch(this.kstate){
+            case K_WAITTING:
+                // left right
+                x = this.node.x + this.dx;
+                if (x > cc.visibleRect.width * 0.5 || x < -cc.visibleRect.width * 0.5) {
+                    this.dx = - this.dx;
+                }
+                break;
+            case K_FLYING:
+                // updown
+                // y = this.node.y + this.dy;
+                // if (y > cc.visibleRect.height * 0.5) {
+                //     this.kstate = K_OVER;
+                // }
+                break
+            case K_SHOT_DOWN:
+                this.dx = 0;
+                this.dy = 0;
+                break
+        }
+        this.node.setPosition(cc.p(x, y))
     },
     
     onCollisionEnter(other) {
