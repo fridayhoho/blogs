@@ -11,6 +11,10 @@ var TargetCircle = cc.Class({
             default:null,
             type:cc.Node
         },
+        parNode:{
+            default:null,
+            type:cc.Node, 
+        },
         wBall:0,
         hBall:0,
     },
@@ -21,14 +25,20 @@ var TargetCircle = cc.Class({
         this.startTime = Date.now();
         this.toRun = true;
         this.wBall = this.ballSp.getContentSize().width ;
-        this.hBall = this.ballSp.getContentSize().height ;
+        this.hBall = this.ballSp.getContentSize().height ;  
+        // this.parNode.getComponent("ParticleSystem").active = false;
         console.log("dvisibleRect.width:", cc.visibleRect.width * 0.5); 
+        this.resetBoard();
     },
 
     resetBoard () {
         this.toRun = true;
         this.dx = 10 + Math.abs(Math.random() % 20)
         console.log("board dx:", this.dx);
+        this.toRun = (cc.random0To1() > 0.5);
+        // 位置变化
+        this.node.y = cc.random0To1() * cc.visibleRect.height * 0.4
+        this.node.scale =  1 + cc.random0To1() 
     },
 
     update (dt) { 
@@ -50,7 +60,11 @@ var TargetCircle = cc.Class({
         // this.node.color = cc.Color.RED;
         // other.node.runAction(cc.flipX(true));
         this.toRun = false;
-        
+        // this.parNode.active = true;
+        // this.parNode.resetSystem();
+        // var cpts = other.world.points;
+        // console.log("cptX:", cpts.x, ' y:', cpts.y);
+        // ths.parNode.pos = cpts;
     },
 });
 

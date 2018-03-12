@@ -11,6 +11,7 @@ cc.Class({
 			default:null,
 			type:cc.Node,
 		},
+		
 		curTouch:[],
 		lastTick:0,
 		isOnTouch:false,
@@ -75,6 +76,7 @@ cc.Class({
 		this.btnRestart.active = false; 
 		this.knife.getComponent("Knife").resetKnife(); 
 		this.targetBoard.getComponent("TargetCircle").resetBoard();
+
 	},
 
 	shotTheKnife:function (pos) {
