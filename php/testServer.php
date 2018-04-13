@@ -23,7 +23,12 @@
 
                         $clientID = array_search($stream, $connections);
                         $input = fgets($stream);
-
+                        if (strlen($input) === 0) {
+                            echo "$clientID closed\n";
+                            fclose($stream);
+                            unset($connections[$clientID]);
+                            continue;
+                        }
                         echo "{$clientID} just said {$input}";
                         callback($input, $stream);
                     // try{
