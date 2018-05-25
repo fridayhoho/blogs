@@ -19,7 +19,7 @@ p = zeros(m, 1);
 gFunc = sigmoid(theta' * X');
 
 p = (gFunc >= 0.5)';
-sizeP = size(p)
+%sizeP = size(p)
 %zerosG = zeros(size(gFunc))
 %onesG = ones(size(gFunc))
 

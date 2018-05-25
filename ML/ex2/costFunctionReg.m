@@ -18,27 +18,22 @@ grad = zeros(size(theta));
 %               derivatives of the cost w.r.t. each parameter in theta
 
 [tm ,tn] = size(theta);
-[tm ,tn]
+sizeTheta = [tm ,tn]
 [m, n] = size(X);
+%sizeX = [m,n]
 
-J = sum( -log(sigmoid(theta' * X')) * y - log(1-sigmoid(theta' * X')) *(1-y) )/m
-+ lambda/(2*m) * sum(theta(2: tm) .^ 2);
-
-
-
-% sT = size(sigmoid(theta' * X'))  1 * 118
-%sg = size(grad)  28*1
-%tm tn 28 * 1
-%(sigmoid(theta' * X') - y') * X  1 * 28
-
-%sumBefore = (sigmoid(theta(:, 1)' * X') - y') * X(:, 1)
-%sumBefore = (sigmoid(theta(1,1) * X(:, 1)') - y') * X(:, 1)
+theta0 = [0;theta(2:end)];
 
 
-% X -> X(:, 1)  when j = 0
-grad(1, 1) = sum( (sigmoid(theta(1,1) * X(:, 1)') - y') * X(:, 1) ) /m;
+tmp = X * theta ;
+h= sigmoid(tmp) ;
 
-grad(2: tm) = sum( (sigmoid(theta([2:tm],:)' * X(:,[2: n])') - y') * X(:,[2: n]) ) /m + (lambda/m) * theta([2: tm],:);
+
+J = sum( -y' * log(h) - (1-y') * log(1-h)) / m + lambda/(2*m) * sum(theta0.^2);
+
+
+grad =  1 / m * (( h - y )' * X ) + (lambda / m ) * theta0' ;
+
 % =============================================================
 
 end
