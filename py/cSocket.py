@@ -7,11 +7,13 @@ from threading import Timer
 import datetime
 import json
 
+
 # 1, conn
 # 2, send heartBeat
 # 3,查车费
 def startBeat():
     Timer(0,  sendHearBeat).start()
+
 def sendHearBeat():
     t = time.time()
     data = {
@@ -53,7 +55,8 @@ def ackFee():
         "head": {
             "cmd": 2002,
             "parkinglotId": 10086,#6位
-            "reqTime": int(t)
+            "reqTime": int(t),
+            "messageId":1,#消息ID，C端回包时原样带上即可
         },
         "respData": {
             "retCode": 0,
@@ -61,7 +64,7 @@ def ackFee():
             "messageId":1, #消息ID，C端回包时原样带上即可
             "actData":{
                 "sequenceNumber":10000000, #车辆入场产生的序列号，8位
-                "plateNumber":"粤B18168",
+                "plateNumber":"粤B88888",
                 "enterTime":1526716142,
                 "curCutOffTime":1526716142, #本次计算费用截止时间
                 "needParkingFee":1000,#总共应收金额，单位分
@@ -87,7 +90,8 @@ def ackPaySuccess():
         "head": {
             "cmd": 2004,
             "parkinglotId": 10086,#6位
-            "reqTime":int(t)
+            "reqTime":int(t),
+            "messageId":1,#消息ID，C端回包时原样带上即可
         },
         "respData": {
             "retCode": 0,
@@ -102,8 +106,28 @@ def ackPaySuccess():
     sys.stdout.write('===sendMsg===:\n '+ jsonS)
     my_socket.send(jsonS)
 
-def delayPayBack():
-    Timer(10,  ackPaySuccess).start()
+def ackYouhuiJ():
+    t = time.time()
+    data = {
+        "head": {
+            "cmd": 2003,
+            "parkinglotId": 123456,#6位
+            "reqTime": int(t),
+            "messageId":1,#消息ID，C端回包时原样带上即可
+        },
+        "respData": {
+            "retCode": 0,
+            "retMsg": "下发成功",
+            "messageId":1, #消息ID，C端回包时原样带上即可
+            "actData":{
+
+            }
+        }
+    }
+    jsonS = json.dumps(data)
+    sys.stdout.write('===sendMsg===:\n '+ jsonS)
+    my_socket.send(jsonS)
+    # Timer(10,  ackPaySuccess).start()
 # def readAck():
 #     data = my_socket.recv(1024)
 #     print "==serverACK====:\n" , data
@@ -114,12 +138,14 @@ def delayPayBack():
 my_socket = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 socket_ip = "123.207.110.89"
 socket_port = 28853
+# socket_ip = "10.30.15.201"
+# socket_port = 9000
 try:
     sys.stdout.write('connecting: '+ str(socket_ip)+': '+str(socket_port)+"\n")
     my_socket.connect((socket_ip, socket_port))
     startBeat()
 except socket.error,msg:
-      raise SocketError,'Connection refused to '+str(socket_ip)+' on port '+str(socket_port)
+      print 'Connection refused to '+str(socket_ip)+' on port '+str(socket_port)
 
 # sys.stdout.write('your message: ')
 # sys.stdout.flush()
@@ -128,10 +154,10 @@ while True:
     # if not r:
     #     continue
     # if r[0] is sys.stdin:
-    #     message = raw_input()
-    #     if message == "quit":
-    #         my_socket.close()
-    #         break
+    # message = raw_input()
+    # if message == "quit":
+    #     my_socket.close()
+    #     break
     #     sys.stdout.write('your message: ')
     #     sys.stdout.flush()
     # else:
@@ -145,7 +171,10 @@ while True:
         ackFee()
     elif pros['head']['cmd'] == 2004:
         #通知支付成功ack
-        delayPayBack()
+        ackPaySuccess()
+    elif pros['head']['cmd'] == 2003:
+        # 优惠卷
+        ackYouhuiJ()
 
 
 
