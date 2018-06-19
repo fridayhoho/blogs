@@ -43,7 +43,7 @@ Theta2_grad = zeros(size(Theta2));
         a2 = sigmoid(X * Theta1');
         a2 = [ones(m, 1)  a2];
         a3 = sigmoid(a2 * Theta2');
-        size(a3)
+
 
         [maxLikehood, indexs] = max(a3, [], 2);
 
@@ -57,11 +57,35 @@ Theta2_grad = zeros(size(Theta2));
                 tt = [1:10];
 
                 yi = (y(i) == tt);
-                yi = yi';
+                yi = yi'; % 无所谓？why?
                 Jt += (-yi(k) * log(a3(i, k)) - (1-yi(k))*log(1-a3(i, k)) );
             endfor
         endfor
         J = Jt /m;
+
+
+        %1.4 Regularized cost function
+
+        Theta1_ = Theta1(:,2:end);
+        Theta2_ = Theta2(:,2:end);
+        RegularPart = 0;
+        sumTheta1 = 0;
+        sumTheta2 = 0;
+        [mTheta1, nTheta1] = size(Theta1_);
+        [mTheta2, nTheta2] = size(Theta2_)
+        for j = 1:mTheta1
+            for k = 1: nTheta1
+                sumTheta1 += Theta1_(j, k)^2;
+            endfor
+        endfor
+        for j = 1:mTheta2
+            for k = 1: nTheta2
+                sumTheta2 += Theta2_(j, k)^2;
+            endfor
+        endfor
+        RegularPart = sumTheta1 + sumTheta2;
+        RegularPart = RegularPart * (lambda/(m*2));
+        J += RegularPart;
 
 % Part 2: Implement the backpropagation algorithm to compute the gradients
 %         Theta1_grad and Theta2_grad. You should return the partial derivatives of
