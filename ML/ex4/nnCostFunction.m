@@ -102,17 +102,20 @@ Theta2_grad = zeros(size(Theta2));
 %               over the training examples if you are implementing it for the
 %               first time.
             % for every training example
-            Delta = 0;
+            Delta1 = zeros(size(Theta1)); %25x401
+            Delta2 = zeros(size(Theta2)); %10x26
             t10 = [1:10];
             for t = 1: m
                 % ####### 1,
                 % forward
                 a_1 = theX(t, :); % 一条记录
-                a_2 = sigmoid(a_1 * Theta1');
-                sizeA2 = size(a_2)
+                z2 = a_1 * Theta1';
+                a_2 = sigmoid(z2);
+                %sizeA2 = size(a_2) % 1* 25
                 a_2 = [1  a_2];
 
-                a_3 = sigmoid(a_2 * Theta2');
+                z3  = a_2 * Theta2';
+                a_3 = sigmoid(z3);
                 %sizeA3 = size(a_3)  1*10
 
                 %####### 2
@@ -120,7 +123,7 @@ Theta2_grad = zeros(size(Theta2));
 
                 yk = (t10 == y(t)); %取y(t) 例如：3 转换成[0, 0, 0, 1, ...]
 
-                a3k = (t10 == indexs);% 计算得到的a3 同样转换 1 * 10 vector [0.2, 0.32, 0.08, 1, ...]
+                %a3k = (t10 == indexs);% 计算得到的a3 同样转换 1 * 10 vector [0.2, 0.32, 0.08, 1, ...]
 
                 delta3 = a_3 - yk;
                 %sizeDelta3 = size(delta3) 1 * 10
@@ -128,23 +131,34 @@ Theta2_grad = zeros(size(Theta2));
 
                 %####### 3
 
-                z2 = Theta1 * a_1';
+                z2 = a_1 * Theta1';
 
                 tmpp = delta3 * Theta2;
-                delta2 = tmpp .* sigmoidGradient(z2);
-                delta2 = delta2(2: end);
-                sizeDelta3 = size(delta3)
-                sizeDelta2 = size(delta2)
+                %size(tmpp) %1x26
 
-                sizeA2 = size(a_2)
-                sizeA1 = size(a_1)
+                delta2 = tmpp(2:end) .* sigmoidGradient(z2);
+
+                %size(delta2) 1*25
+
+                %sizeDelta3 = size(delta3) % 1* 10
+                %sizeDelta2 = size(delta2) % 1 * 649
+
+                %sizeA2 = size(a_2) % 1* 25
+                %sizeA1 = size(a_1) % 1 * 401
                 %####### 4
-                 Delta = sum(delta3' * a_2);
-                 Delta = Delta + sum(delta2' * a_1);
+                 Delta1 = Delta1 + delta2' * a_1;
+                 Delta2 = Delta2 + delta3' * a_2;
 
             endfor
             %####### 5
-            derivativeJ = Delta/m;
+            m1 = size(Theta1,1);
+            m2 = size(Theta2,1);
+            Thet1 = [zeros(m1,1) Theta1(:,2:end)];
+            Thet2 = [zeros(m2,1) Theta2(:,2:end)];
+
+            Theta1_grad = Delta1/m +lambda/m*Thet1; %25x401
+            Theta2_grad = Delta2/m +lambda/m*Thet2; %10x26
+
 %
 % Part 3: Implement regularization with the cost function and gradients.
 %
