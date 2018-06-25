@@ -14,9 +14,9 @@ g = zeros(size(z));
 
 
 
+sim = 1.0 ./ (1.0 + exp(-z));
 
-
-
+g = sim .* (1 - sim);% ?
 
 
 

@@ -39,8 +39,8 @@ Theta2_grad = zeros(size(Theta2));
 %         cost function computation is correct by verifying the cost
 %         computed in ex4.m
 %           J += (1/m) * sum(-y(k) * log(a3(k)) - (1-y(k))*log(1-a3(k)) );
-        X = [ones(m, 1) X];
-        a2 = sigmoid(X * Theta1');
+        theX = [ones(m, 1) X];
+        a2 = sigmoid(theX * Theta1');
         a2 = [ones(m, 1)  a2];
         a3 = sigmoid(a2 * Theta2');
 
@@ -101,6 +101,50 @@ Theta2_grad = zeros(size(Theta2));
 %         Hint: We recommend implementing backpropagation using a for-loop
 %               over the training examples if you are implementing it for the
 %               first time.
+            % for every training example
+            Delta = 0;
+            t10 = [1:10];
+            for t = 1: m
+                % ####### 1,
+                % forward
+                a_1 = theX(t, :); % 一条记录
+                a_2 = sigmoid(a_1 * Theta1');
+                sizeA2 = size(a_2)
+                a_2 = [1  a_2];
+
+                a_3 = sigmoid(a_2 * Theta2');
+                %sizeA3 = size(a_3)  1*10
+
+                %####### 2
+                [maxLikehood, indexs] = max(a_3, [], 2);
+
+                yk = (t10 == y(t)); %取y(t) 例如：3 转换成[0, 0, 0, 1, ...]
+
+                a3k = (t10 == indexs);% 计算得到的a3 同样转换 1 * 10 vector [0.2, 0.32, 0.08, 1, ...]
+
+                delta3 = a_3 - yk;
+                %sizeDelta3 = size(delta3) 1 * 10
+
+
+                %####### 3
+
+                z2 = Theta1 * a_1';
+
+                tmpp = delta3 * Theta2;
+                delta2 = tmpp .* sigmoidGradient(z2);
+                delta2 = delta2(2: end);
+                sizeDelta3 = size(delta3)
+                sizeDelta2 = size(delta2)
+
+                sizeA2 = size(a_2)
+                sizeA1 = size(a_1)
+                %####### 4
+                 Delta = sum(delta3' * a_2);
+                 Delta = Delta + sum(delta2' * a_1);
+
+            endfor
+            %####### 5
+            derivativeJ = Delta/m;
 %
 % Part 3: Implement regularization with the cost function and gradients.
 %
