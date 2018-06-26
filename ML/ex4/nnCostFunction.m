@@ -104,6 +104,9 @@ Theta2_grad = zeros(size(Theta2));
             % for every training example
             Delta1 = zeros(size(Theta1)); %25x401
             Delta2 = zeros(size(Theta2)); %10x26
+            for i=1:num_labels;
+                ynew(:,i) = y==i; %5000x10
+            end
             t10 = [1:10];
             for t = 1: m
                 % ####### 1,
@@ -125,7 +128,7 @@ Theta2_grad = zeros(size(Theta2));
 
                 %a3k = (t10 == indexs);% 计算得到的a3 同样转换 1 * 10 vector [0.2, 0.32, 0.08, 1, ...]
 
-                delta3 = a_3 - yk;
+                delta3 = a_3 - ynew(t,:);
                 %sizeDelta3 = size(delta3) 1 * 10
 
 
