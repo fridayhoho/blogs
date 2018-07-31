@@ -1,4 +1,4 @@
-function [J, grad] = linearRegCostFunction(X, y, theta, lambda)
+    function [J, grad] = linearRegCostFunction(X, y, theta, lambda)
 %LINEARREGCOSTFUNCTION Compute cost and gradient for regularized linear
 %regression with multiple variables
 %   [J, grad] = LINEARREGCOSTFUNCTION(X, y, theta, lambda) computes the
@@ -7,28 +7,36 @@ function [J, grad] = linearRegCostFunction(X, y, theta, lambda)
 
 % Initialize some useful values
 m = length(y); % number of training examples
-
+n = size(X, 2)
 % You need to return the following variables correctly
 J = 0;
-grad = zeros(size(theta));
-% X = [ones(m, 1) X];
+grad = zeros(size(theta)); % 2 * 1
 
-sigmoid = theta * X';
-diff = (sigmoid - y)^2;
+
+%sizeX = size(X)
+sizeTheta = size(theta)
+
+sigmoid = X * theta;
+diff = (sigmoid - y).^2;
 summary = sum(diff)/(2*m);
 
-theta0 = [0 ; theta(2:end)];
+theta2end = theta(2:end);
 
-regularized_part = (lambda/m)*n + sum(theta0.^2);
+regularized_part = (lambda/(m*2)) * sum(theta2end.^2);
 
 J = summary + regularized_part;
 
-theta0 = (1/m)* sum( ( sigmoid - y )' * X );
-theta1 = (1/m)* sum( ( sigmoid - y )' * X(:,2) ) + (lambda/m)*theta;
 
-theta(1, 1) = theta0;
-theta(2, 1) = theta1;
 
+% grad0 = (1/m)* sum( ( sigmoid - y )' * X );
+% grad1 = (1/m)* sum( ( sigmoid - y )' * X(:,2) ) + (lambda/m)*theta2end;
+
+
+% grad(1,1) = grad0;
+% grad(2, 1) = grad1;
+
+
+grad
 % ====================== YOUR CODE HERE ======================
 % Instructions: Compute the cost and gradient of regularized linear
 %               regression for a particular choice of theta.
