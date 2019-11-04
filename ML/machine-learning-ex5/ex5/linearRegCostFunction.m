@@ -10,11 +10,11 @@ m = length(y); % number of training examples
 n = size(X, 2)
 % You need to return the following variables correctly
 J = 0;
-grad = zeros(size(theta)); % 2 * 1
+grad = zeros(size(theta));
 
 
 %sizeX = size(X)
-sizeTheta = size(theta)
+%sizeTheta = size(theta)
 
 sigmoid = X * theta;
 diff = (sigmoid - y).^2;
@@ -27,16 +27,21 @@ regularized_part = (lambda/(m*2)) * sum(theta2end.^2);
 J = summary + regularized_part;
 
 
+% j =0
+grad0 = (1/m)* sum( ( sigmoid - y )' * X(:,1) ) ;
+grad(1) = grad0;
 
-% grad0 = (1/m)* sum( ( sigmoid - y )' * X );
-% grad1 = (1/m)* sum( ( sigmoid - y )' * X(:,2) ) + (lambda/m)*theta2end;
+grad = X'*(sigmoid-y)./m;
+grad(2:size(grad,1)) = grad(2:size(grad,1)) + (theta(2:size(theta,1)).*lambda./m);
+
+% for i = 2:n
+    %j >= 1
+    %grad1 = (1/m)* sum( ( sigmoid - y )' * X(:,n) ) + (lambda/m) * theta2end;
+    %sizeGrad1 = size(grad1)
+    %grad(2: end) = grad1;
+% endfor
 
 
-% grad(1,1) = grad0;
-% grad(2, 1) = grad1;
-
-
-grad
 % ====================== YOUR CODE HERE ======================
 % Instructions: Compute the cost and gradient of regularized linear
 %               regression for a particular choice of theta.
